@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\EmployeeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EmployeeRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use DateTimeInterface;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=EmployeeRepository::class)
  */
 class Employee
@@ -15,51 +18,59 @@ class Employee
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private ?string $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $surname;
+    private ?string $surname;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $salary;
+    private ?float $salary;
 
     /**
      * @ORM\Column(type="date")
      */
-    private $birthdate;
+    private ?DateTimeInterface $birthdate;
+    
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    public function getId()
+	{
+		return $this->id;
+	}
 
-    public function getName(): ?string
+	public function setId($id)
+	{
+		$this->id = $id;
+
+		return $this;
+	}
+
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName($name)
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getSurname(): ?string
+    public function getSurname()
     {
         return $this->surname;
     }
 
-    public function setSurname(string $surname): self
+    public function setSurname($surname)
     {
         $this->surname = $surname;
 
@@ -71,19 +82,19 @@ class Employee
         return $this->salary;
     }
 
-    public function setSalary(float $salary): self
+    public function setSalary($salary)
     {
         $this->salary = $salary;
 
         return $this;
     }
 
-    public function getBirthdate(): ?\DateTimeInterface
+    public function getBirthdate(): ?DateTimeInterface
     {
         return $this->birthdate;
     }
 
-    public function setBirthdate(\DateTimeInterface $birthdate): self
+    public function setBirthdate($birthdate)
     {
         $this->birthdate = $birthdate;
 

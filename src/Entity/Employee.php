@@ -10,7 +10,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Employee entity
- * @ApiResource()
+ * 
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "patch", "delete"}
+ * )
  * @ORM\Entity(repositoryClass=App\Repository\EmployeeRepository::class)
  */
 class Employee
@@ -57,7 +61,7 @@ class Employee
     {
         $this->tasks = new ArrayCollection();
     }
-    
+
 
     /**
      * Get id of employee
@@ -65,9 +69,9 @@ class Employee
      * @return integer|null
      */
     public function getId(): ?int
-	{
-		return $this->id;
-	}
+    {
+        return $this->id;
+    }
 
     /**
      * Get name of employee

@@ -4,11 +4,14 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * Task Entity
  * 
  * @ApiResource()
+ * @ApiFilter(SearchFilter::class, properties={"name": "ipartial"})
  * @ORM\Entity(repositoryClass=App\Repository\TaskRepository::class)
  */
 class Task

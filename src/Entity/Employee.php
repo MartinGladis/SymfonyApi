@@ -12,8 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Employee entity
  * 
  * @ApiResource(
- *     collectionOperations={"get", "post"},
- *     itemOperations={"get", "patch", "delete"}
+ *  collectionOperations={"get", "post"},
+ *  itemOperations={"get", "patch", "delete"}
  * )
  * @ORM\Entity(repositoryClass=App\Repository\EmployeeRepository::class)
  */

@@ -3,14 +3,18 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Task Entity
  * 
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"read"}},
+ *     denormalizationContext={"groups"={"write"}},
+ * )
  * @ApiFilter(SearchFilter::class, properties={"name": "ipartial"})
  * @ORM\Entity(repositoryClass=App\Repository\TaskRepository::class)
  */
@@ -24,11 +28,13 @@ class Task
     private ?int $id;
 
     /**
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255)
      */
     private ?string $name;
 
     /**
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255)
      */
     private ?string $description;
@@ -118,6 +124,19 @@ class Task
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Set date of task creation
+     *
+     * @param \DateTimeInterface $createAt
+     * @return self
+     */
+    public function setCreatedAt(\DateTimeInterface $createAt): self
+    {
+        $this->createdAt = $createAt;
+
+        return $this;
     }
 
     /**
